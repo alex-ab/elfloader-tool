@@ -11,6 +11,12 @@
 # Targets
 TARGETS := elfloader.o
 
+# Defines for Genode AM335x stand alone build:
+STAGE_DIR=./
+ARCH=arm
+PLAT=am335x
+TOOLPREFIX=arm-none-eabi-
+
 # Source files required to build the target
 CFILES   := $(patsubst $(SOURCE_DIR)/%,%,$(wildcard $(SOURCE_DIR)/src/*.c))
 CFILES   += $(patsubst $(SOURCE_DIR)/%,%,$(wildcard $(SOURCE_DIR)/src/arch-$(ARCH)/*.c))
@@ -35,11 +41,9 @@ endif
 
 INCLUDE_DIRS += $(SOURCE_DIR)/src/arch-arm/plat-$(PLAT)/
 
-LIBS = cpio
-
 NK_CFLAGS += -ffreestanding -Wall -Werror -W
 
-include $(SEL4_COMMON)/common.mk
+include common.mk
 
 #
 # We produce a partially linked object file here which, to be used, will be
