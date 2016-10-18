@@ -35,8 +35,6 @@ endif
 
 INCLUDE_DIRS += $(SOURCE_DIR)/src/arch-arm/plat-$(PLAT)/
 
-LIBS = cpio
-
 NK_CFLAGS += -ffreestanding -Wall -Werror -W
 
 include $(SEL4_COMMON)/common.mk
