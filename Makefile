@@ -11,11 +11,16 @@
 # Targets
 TARGETS := elfloader.o
 
-# Defines for Genode AM335x stand alone build:
+# Defines for Genode AM335x stand alone build as default:
 STAGE_DIR=./
-ARCH=arm
-PLAT=am335x
-TOOLPREFIX=arm-none-eabi-
+ARCH?=arm
+PLAT?=am335x
+ARMV?=armv7-a
+TOOLPREFIX=armv7a-hardfloat-linux-gnueabi-
+
+NK_ASFLAGS += -DARMV7_A
+
+SOURCE_DIR=./
 
 # Source files required to build the target
 CFILES   := $(patsubst $(SOURCE_DIR)/%,%,$(wildcard $(SOURCE_DIR)/src/*.c))
@@ -42,6 +47,10 @@ endif
 INCLUDE_DIRS += $(SOURCE_DIR)/src/arch-arm/plat-$(PLAT)/
 
 NK_CFLAGS += -ffreestanding -Wall -Werror -W
+CFLAGS += -march=armv7-a -DARMV7_A
+CFLAGS += -mfloat-abi=hard
+CFLAGS += -mfpu=vfpv3-d16
+CFLAGS += -mtls-dialect=gnu
 
 include common.mk
 
@@ -51,5 +60,6 @@ include common.mk
 # a bootable ELF file.
 #
 elfloader.o: $(OBJFILES)
+	@echo " Build for $(ARCH) $(PLAT) $(ARMV)"
 	@echo " [LINK] $@"
-	${Q}$(CC) -r $^ $(LDFLAGS) -o $@
+	${Q}$(CC) -DARMV7_A -r $^ $(LDFLAGS) -o $@
