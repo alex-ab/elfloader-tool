@@ -108,10 +108,10 @@ pushd "${TEMP_DIR}/cpio" &>/dev/null
 printf "kernel.elf\n$(basename ${USER_IMAGE})\n" | cpio --quiet -o -H newc > ${TEMP_DIR}/archive.cpio
 
 # Strip CPIO metadata if possible.
-which cpio-strip > /dev/null
-if [ $? -eq 0 ]; then
-    cpio-strip ${TEMP_DIR}/archive.cpio
-fi
+#which cpio-strip > /dev/null
+#if [ $? -eq 0 ]; then
+#    cpio-strip ${TEMP_DIR}/archive.cpio
+#fi
 
 popd &>/dev/null
 
@@ -122,7 +122,7 @@ popd &>/dev/null
 # to the temporary directory.
 #
 pushd "${TEMP_DIR}" >/dev/null
-${TOOLPREFIX}ld -T "${SCRIPT_DIR}/archive.bin.lds" \
+${TOOLPREFIX}ld -T "${SCRIPT_DIR}/src/archive.bin.lds" \
         --oformat ${FORMAT} -r -b binary archive.cpio \
         -o "${TEMP_DIR}/archive.o" || fail
 popd >/dev/null
@@ -130,7 +130,7 @@ popd >/dev/null
 #
 # Link everything together to produce the final ELF image.
 #
-${TOOLPREFIX}ld -T "${SCRIPT_DIR}/linker.lds" \
+${TOOLPREFIX}ld -T "${SCRIPT_DIR}/src/arch-arm/linker.lds" \
         --oformat ${FORMAT} \
         "${SCRIPT_DIR}/elfloader.o" "${TEMP_DIR}/archive.o" \
         -Ttext=${ENTRY_ADDR} -o "${OUTPUT_FILE}" \
