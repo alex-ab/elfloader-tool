@@ -14,7 +14,7 @@
 
 #include "../stdint.h"
 #include "../stdio.h"
-#include "paltform.h"
+#include "platform.h"
 
 /*
  * Place a character to the given stream, which we always assume to be
