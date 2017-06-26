@@ -10,7 +10,7 @@
  */
 
 #include <autoconf.h>
-#include <stdint.h>
+#include "../stdint.h"
 #include "../scu.h"
 #include "../stdio.h"
 

@@ -16,7 +16,7 @@ STAGE_DIR=./
 ARCH?=arm
 PLAT?=am335x
 ARMV?=armv7-a
-TOOLPREFIX=armv7a-hardfloat-linux-gnueabi-
+TOOLPREFIX?=armv7a-hardfloat-linux-gnueabi-
 
 NK_ASFLAGS += -DARMV7_A
 
