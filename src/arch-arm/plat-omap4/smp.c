@@ -8,7 +8,7 @@
  * @TAG(NICTA_GPL)
  */
 
-#include <stdint.h>
+#include "../stdint.h"
 #include "../scu.h"
 
 void flush_dcache();
