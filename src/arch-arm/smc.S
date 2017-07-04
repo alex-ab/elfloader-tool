@@ -8,6 +8,9 @@
  * @TAG(NICTA_GPL)
  */
 
+#ifdef ARMV7_A
+.arch armv7a
+#endif
 
 .text
 
